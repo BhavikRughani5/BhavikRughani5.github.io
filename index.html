@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bhavik Rughani</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0f2044;
+    --navy-mid: #1a3460;
+    --accent: #1e4d8c;
+    --accent-light: #2e6abf;
+    --gold: #c9a84c;
+    --text: #1a1a2e;
+    --text-muted: #5a6072;
+    --border: #dce3ef;
+    --bg: #ffffff;
+    --bg-subtle: #f5f7fc;
+    --card-hover: #eef2fb;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── TOP NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 52px;
+  }
+  .nav-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--navy);
+    letter-spacing: 0.01em;
+  }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links a {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── WRAPPER ── */
+  .wrapper {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 28px 80px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 52px;
+    align-items: start;
+    padding: 60px 0 52px;
+    border-bottom: 1px solid var(--border);
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards;
+  }
+
+  .hero-left { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+
+  .avatar-wrap {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--navy) 0%, var(--accent-light) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 32px rgba(15,32,68,0.18);
+    border: 3px solid white;
+    outline: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .avatar-initials {
+    font-family: 'Playfair Display', serif;
+    font-size: 52px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: -1px;
+  }
+
+  .hero-links { display: flex; flex-direction: column; gap: 9px; width: 100%; }
+  .hero-link {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--accent);
+    text-decoration: none;
+    padding: 7px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+    background: white;
+  }
+  .hero-link:hover {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+    transform: translateX(3px);
+  }
+  .hero-link svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+  .hero-right {}
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+    margin-bottom: 4px;
+  }
+  .hero-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--accent-light);
+    margin-bottom: 4px;
+    letter-spacing: 0.02em;
+  }
+  .hero-location {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .hero-bio {
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.75;
+    max-width: 600px;
+  }
+  .hero-bio strong { color: var(--navy); font-weight: 600; }
+  .bio-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+  }
+  .bio-badge {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--accent);
+    background: #eef2fb;
+    border: 1px solid #c8d6f0;
+    border-radius: 20px;
+    padding: 4px 12px;
+    letter-spacing: 0.02em;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 48px 0 0; }
+
+  .section-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 24px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--navy);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    margin-left: 4px;
+  }
+
+  /* ── CARDS ── */
+  .card {
+    display: grid;
+    grid-template-columns: 68px 1fr;
+    gap: 20px;
+    padding: 20px 16px;
+    border-radius: 10px;
+    transition: background 0.2s;
+    margin-bottom: 4px;
+    opacity: 0;
+    animation: fadeUp 0.5s ease forwards;
+  }
+  .card:hover { background: var(--card-hover); }
+
+  .card-logo {
+    width: 52px;
+    height: 52px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    letter-spacing: -0.5px;
+  }
+
+  .card-body {}
+  .card-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 2px;
+  }
+  .card-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--navy);
+  }
+  .card-dates {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    font-weight: 400;
+    white-space: nowrap;
+  }
+  .card-sub {
+    font-size: 13px;
+    color: var(--accent-light);
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .card-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .card-bullets li {
+    font-size: 13.5px;
+    color: var(--text-muted);
+    padding-left: 14px;
+    position: relative;
+    line-height: 1.6;
+  }
+  .card-bullets li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 10px;
+    top: 3px;
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+  }
+  .tag {
+    font-size: 11.5px;
+    font-weight: 500;
+    color: var(--accent);
+    background: #eef2fb;
+    border: 1px solid #c8d6f0;
+    border-radius: 4px;
+    padding: 2px 8px;
+  }
+
+  /* project card links */
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--accent);
+    text-decoration: none;
+    margin-top: 8px;
+    transition: color 0.2s;
+  }
+  .card-link:hover { color: var(--navy); }
+
+  /* ── SKILLS ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin-top: 4px;
+  }
+  .skill-group {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    transition: box-shadow 0.2s;
+  }
+  .skill-group:hover {
+    box-shadow: 0 4px 16px rgba(15,32,68,0.08);
+  }
+  .skill-group-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+  .skill-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .skill-item {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  /* ── CERTS ── */
+  .certs-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+  .cert-card {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--accent-light) 100%);
+    color: white;
+    border-radius: 10px;
+    padding: 16px 20px;
+    min-width: 200px;
+    flex: 1;
+  }
+  .cert-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .cert-sub { font-size: 12px; opacity: 0.78; }
+
+  /* ── FOOTER ── */
+  footer {
+    margin-top: 60px;
+    padding: 24px 0;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-size: 12.5px;
+    color: var(--text-muted);
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .card:nth-child(1) { animation-delay: 0.05s; }
+  .card:nth-child(2) { animation-delay: 0.12s; }
+  .card:nth-child(3) { animation-delay: 0.19s; }
+  .card:nth-child(4) { animation-delay: 0.26s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 680px) {
+    nav { padding: 0 20px; }
+    .nav-links { gap: 16px; }
+    .wrapper { padding: 0 16px 60px; }
+    .hero { grid-template-columns: 1fr; gap: 28px; padding: 40px 0 36px; }
+    .hero-left { flex-direction: row; align-items: center; flex-wrap: wrap; }
+    .hero-links { flex-direction: row; flex-wrap: wrap; }
+    .hero-link { flex: 1; min-width: 120px; }
+    .hero-name { font-size: 32px; }
+    .card { grid-template-columns: 1fr; }
+    .card-logo { display: none; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-brand">Bhavik Rughani</span>
+  <div class="nav-links">
+    <a href="#experience">Experience</a>
+    <a href="#education">Education</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+  </div>
+</nav>
+
+<div class="wrapper">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-left">
+      <div class="avatar-wrap">
+        <span class="avatar-initials">BR</span>
+      </div>
+      <div class="hero-links">
+        <a class="hero-link" href="https://linkedin.com/in/bhavikrughani" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a class="hero-link" href="mailto:bhavikrughani10@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Email
+        </a>
+        <a class="hero-link" href="#" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+          GitHub
+        </a>
+        <a class="hero-link" href="Bhavik_Rughani_CV_Sabre.pdf" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          CV / Résumé
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <h1 class="hero-name">Bhavik Rughani</h1>
+      <div class="hero-title">Finance Analyst · Quantitative Research · FinTech</div>
+      <div class="hero-location">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Waltham, MA
+      </div>
+      <p class="hero-bio">
+        Finance analyst and <strong>Masters candidate at Bentley University</strong> (Analytics Track, GPA 3.8) with 2+ years of experience spanning FP&A at <strong>Tata Capital</strong>, equity research at <strong>Arvind Shah & Associates</strong>, and quantitative research at Bentley. I build at the intersection of finance and technology — from financial models and forecasting systems to Python-driven analytics tools and AI-powered market intelligence applications.
+      </p>
+      <div class="bio-links">
+        <span class="bio-badge">CFA Level II Candidate</span>
+        <span class="bio-badge">ACCA (9/13)</span>
+        <span class="bio-badge">Python · SQL</span>
+        <span class="bio-badge">Power BI · Tableau</span>
+        <span class="bio-badge">Bloomberg · FactSet</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-label">Work Experience</div>
+
+    <div class="card">
+      <div class="card-logo" style="background: linear-gradient(135deg, #1a3460, #2e6abf);">BU</div>
+      <div class="card-body">
+        <div class="card-header">
+          <span class="card-title">Research Assistant</span>
+          <span class="card-dates">Sep 2024 – May 2026</span>
+        </div>
+        <div class="card-sub">Bentley University · Waltham, MA</div>
+        <ul class="card-bullets">
+          <li>Compiled and maintained data on 1,700 companies and 150 short-selling campaigns using FactSet and Bloomberg, with reproducible automated workflows and data authenticity checks.</li>
+          <li>Structured 10,200+ unstructured data points in Python, building documented pipelines from scratch that improved data integrity and operational efficiency.</li>
+          <li>Drafted one-page research summaries on tight deadlines for active academic publications.</li>
+        </ul>
+        <div class="card-tags"><span class="tag">Python</span><span class="tag">FactSet</span><span class="tag">Bloomberg</span><span class="tag">Data Pipelines</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-logo" style="background: linear-gradient(135deg, #1b4f2a, #2d8a47);">AS</div>
+      <div class="card-body">
+        <div class="card-header">
+          <span class="card-title">Equity Research Analyst</span>
+          <span class="card-dates">May 2023 – Jun 2024</span>
+        </div>
+        <div class="card-sub">Arvind Shah & Associates</div>
+        <ul class="card-bullets">
+          <li>Used Python web scraping to surface 15 investment ideas generating a <strong>21% realized return</strong> across retail, manufacturing, and telecom sectors.</li>
+          <li>Built monthly and quarterly Power BI portfolio reports tracking 15 KPIs, with scenario analysis, historical stress tests, and Monte Carlo simulations.</li>
+          <li>Delivered client-facing presentations and ad-hoc research based on management requirements.</li>
+        </ul>
+        <div class="card-tags"><span class="tag">Python</span><span class="tag">Power BI</span><span class="tag">Excel</span><span class="tag">Monte Carlo</span><span class="tag">Equity Research</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-logo" style="background: linear-gradient(135deg, #7b1a1a, #c0392b);">TC</div>
+      <div class="card-body">
+        <div class="card-header">
+          <span class="card-title">Assistant Manager, FP&A</span>
+          <span class="card-dates">Dec 2022 – Apr 2023</span>
+        </div>
+        <div class="card-sub">Tata Capital · India</div>
+        <ul class="card-bullets">
+          <li>Collaborated across operations, compliance, and growth teams to develop a 5-year budget forecast — delivered a week early with a <strong>10% improvement in forecast accuracy</strong>.</li>
+          <li>Automated weekly/monthly budget vs. actual analysis and quarterly shareholder presentations in Power BI; managed regulatory reporting across a <strong>$13bn AUM portfolio</strong>.</li>
+          <li>Analyzed monthly financial statements and prepared weekly performance summaries for the CFO; coordinated urban branch expansion plans with HR and Real Estate.</li>
+        </ul>
+        <div class="card-tags"><span class="tag">Power BI</span><span class="tag">SAP</span><span class="tag">Excel</span><span class="tag">FP&A</span><span class="tag">Financial Modelling</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-logo" style="background: linear-gradient(135deg, #4a2060, #7b3fa0);">KY</div>
+      <div class="card-body">
+        <div class="card-header">
+          <span class="card-title">Management Trainee</span>
+          <span class="card-dates">Jun 2022 – Oct 2022</span>
+        </div>
+        <div class="card-sub">Kytchens (Cloud Kitchen)</div>
+        <ul class="card-bullets">
+          <li>Drove <strong>~30% MoM order volume growth</strong> through cross-functional growth strategy collaboration.</li>
+          <li>Negotiated commission structures with food-delivery aggregators using Excel-based financial analysis, reducing fees and improving unit economics.</li>
+          <li>Identified and resolved order flow bottlenecks to reduce turnaround times and food wastage.</li>
+        </ul>
+        <div class="card-tags"><span class="tag">Excel</span><span class="tag">Operations</span><span class="tag">Financial Analysis</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="section-label">Education</div>
+
+    <div class="card">
+      <div class="card-logo" style="background: linear-gradient(135deg, #003366, #1a5276);">BU</div>
+      <div class="card-body">
+        <div class="card-header">
+          <span class="card-title">Master of Science, Finance – Analytics Track</span>
+          <span class="card-dates">Jun 2024 – May 2026</span>
+        </div>
+        <div class="card-sub">Bentley University · Waltham, MA · GPA: 3.8 / 4.0</div>
+        <ul class="card-bullets">
+          <li>Focus on quantitative finance, financial modelling, data analytics, and applied research methods.</li>
+          <li>Active Research Assistant on short-selling campaign analysis using FactSet and Bloomberg datasets.</li>
+        </ul>
+        <div class="card-tags"><span class="tag">Quantitative Finance</span><span class="tag">Analytics</span><span class="tag">Research</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-label">Projects</div>
+
+    <div class="card">
+      <div class="card-logo" style="background: linear-gradient(135deg, #0a3d62, #1e88e5);">KA</div>
+      <div class="card-body">
+        <div class="card-header">
+          <span class="card-title">Kalshi AI Dashboard</span>
+          <span class="card-dates">2026</span>
+        </div>
+        <div class="card-sub">Prediction Market Intelligence · Personal Project</div>
+        <ul class="card-bullets">
+          <li>Built a full-stack application from scratch integrating the Kalshi API to deliver real-time prediction market insights and analytics.</li>
+          <li>Independently scoped, designed, and shipped the product using Python, SQL, FastAPI, and Claude — applying Brier score and log-loss metrics to identify longshot biases across market categories.</li>
+        </ul>
+        <div class="card-tags"><span class="tag">Python</span><span class="tag">SQL</span><span class="tag">FastAPI</span><span class="tag">Claude API</span><span class="tag">Prediction Markets</span></div>
+        <a class="card-link" href="#" target="_blank">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+          View on GitHub
+        </a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-logo" style="background: linear-gradient(135deg, #1a4731, #27ae60);">SP</div>
+      <div class="card-body">
+        <div class="card-header">
+          <span class="card-title">Personal Spend Analyser</span>
+          <span class="card-dates">2025</span>
+        </div>
+        <div class="card-sub">FinTech · Bentley CIS Sandbox Summit</div>
+        <ul class="card-bullets">
+          <li>Built a full-stack spend analytics tool in Python/Streamlit with PDF and Excel bank statement ingestion, trainable transaction categorisation, and an interactive dashboard.</li>
+          <li>Handled Chase-specific PDF parsing and custom category-training workflows, showcased at the Bentley CIS Sandbox Summit tech project showcase.</li>
+        </ul>
+        <div class="card-tags"><span class="tag">Python</span><span class="tag">Streamlit</span><span class="tag">PDF Parsing</span><span class="tag">Data Viz</span></div>
+        <a class="card-link" href="#" target="_blank">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+          View on GitHub
+        </a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-logo" style="background: linear-gradient(135deg, #5d3a00, #e67e22);">JA</div>
+      <div class="card-body">
+        <div class="card-header">
+          <span class="card-title">Job Application Form Automator</span>
+          <span class="card-dates">2025 – 2026</span>
+        </div>
+        <div class="card-sub">Chrome/Edge Extension · Personal Project</div>
+        <ul class="card-bullets">
+          <li>Built a browser extension to automate job application form-filling across Workday, Greenhouse, and Ashby platforms — handling React-based custom dropdowns and dynamic fields.</li>
+          <li>Iterated through multiple UI and functionality designs; currently testing on live applications.</li>
+        </ul>
+        <div class="card-tags"><span class="tag">JavaScript</span><span class="tag">Chrome Extension</span><span class="tag">Automation</span><span class="tag">Workday</span></div>
+        <a class="card-link" href="#" target="_blank">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+          View on GitHub
+        </a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-logo" style="background: linear-gradient(135deg, #1c2833, #2e86c1);">CFA</div>
+      <div class="card-body">
+        <div class="card-header">
+          <span class="card-title">CFA Equity Research — HubSpot</span>
+          <span class="card-dates">2025</span>
+        </div>
+        <div class="card-sub">CFA Equity Research Competition</div>
+        <ul class="card-bullets">
+          <li>Built a detailed DCF and comparable-company financial model in Excel to value HubSpot Inc., incorporating scenario analysis and quantitative sensitivity tables.</li>
+          <li>Produced a professional contrarian equity research report with formal investment recommendation, in CFA Institute style.</li>
+        </ul>
+        <div class="card-tags"><span class="tag">Excel</span><span class="tag">DCF Modelling</span><span class="tag">Equity Research</span><span class="tag">Scenario Analysis</span></div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-label">Skills</div>
+
+    <div class="skills-grid">
+      <div class="skill-group">
+        <div class="skill-group-title">Programming</div>
+        <div class="skill-list">
+          <span class="skill-item">Python (pandas, NumPy, FastAPI)</span>
+          <span class="skill-item">SQL</span>
+          <span class="skill-item">JavaScript</span>
+          <span class="skill-item">Excel (Power Query + Macros)</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Visualisation & BI</div>
+        <div class="skill-list">
+          <span class="skill-item">Power BI</span>
+          <span class="skill-item">Tableau</span>
+          <span class="skill-item">Google Data Studio</span>
+          <span class="skill-item">PowerPoint</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Finance Tools</div>
+        <div class="skill-list">
+          <span class="skill-item">Bloomberg Terminal</span>
+          <span class="skill-item">FactSet</span>
+          <span class="skill-item">SAP</span>
+          <span class="skill-item">Financial Modelling</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Expertise</div>
+        <div class="skill-list">
+          <span class="skill-item">FP&A & Forecasting</span>
+          <span class="skill-item">Equity Research</span>
+          <span class="skill-item">Risk & Scenario Analysis</span>
+          <span class="skill-item">Prediction Markets</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="certs-row">
+      <div class="cert-card">
+        <div class="cert-title">CFA — Level II Candidate</div>
+        <div class="cert-sub">CFA Institute · In Progress</div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-title">ACCA — 9 of 13 Papers</div>
+        <div class="cert-sub">Association of Chartered Certified Accountants · In Progress</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>Bhavik Rughani · Waltham, MA · <a href="mailto:bhavikrughani10@gmail.com">bhavikrughani10@gmail.com</a></p>
+  <p style="margin-top:6px; font-size:11.5px;">Design inspired by <a href="https://jonbarron.info" target="_blank">jonbarron.info</a></p>
+</footer>
+
+</body>
+</html>
